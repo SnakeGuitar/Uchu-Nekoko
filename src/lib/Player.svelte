@@ -1,22 +1,21 @@
 <script>
-	import { playing, currentTrack, currentTime, duration } from '../stores/playerStore.js';
-	import { tracks } from '../data/tracks.js';
+	import { playerState } from '../stores/playerStore.js';
 
-	export let tracks;
-	export let currentTrack;
-	export let playing;
+	let { tracks, currentTrack, playing, currentTime, duration } = $props();
 
 	let audioElement;
 
-	$: if (tracks && tracks.length > 0) {
-		const track = tracks[currentTrack];
-		if (audioElement && audioElement.src !== track.src) {
-			audioElement.src = track.src;
-			if (playing) {
-				audioElement.play();
+	$effect(() => {
+		if (tracks && tracks.length > 0) {
+			const track = tracks[currentTrack];
+			if (audioElement && audioElement.src !== track.src) {
+				audioElement.src = track.src;
+				if (playing) {
+					audioElement.play();
+				}
 			}
 		}
-	}
+	});
 
 	function togglePlay() {
 		if (!audioElement) return;

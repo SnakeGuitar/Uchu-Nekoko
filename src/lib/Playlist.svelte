@@ -1,9 +1,7 @@
 <script>
-	import { currentTrack, playing } from '../stores/playerStore.js';
+	import { playerState } from '../stores/playerStore.js';
 
-	export let tracks;
-	export let currentTrack;
-	export let playing;
+	let { tracks, currentTrack, playing } = $props();
 
 	function selectTrack(index) {
 		currentTrack = index;

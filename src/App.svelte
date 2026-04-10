@@ -2,9 +2,17 @@
 	import Player from './lib/Player.svelte';
 	import Playlist from './lib/Playlist.svelte';
 	import { tracks } from './data/tracks.js';
-	import { playing, currentTrack, currentTime, duration } from './stores/playerStore.js';
+	import { playerState } from './stores/playerStore.js';
 
-	let progress = 0;
+	let currentTrack = $state(playerState.currentTrack);
+	let playing = $state(playerState.playing);
+	let currentTime = $state(playerState.currentTime);
+	let duration = $state(playerState.duration);
+
+	$effect(() => { playerState.currentTrack = currentTrack; });
+	$effect(() => { playerState.playing = playing; });
+	$effect(() => { playerState.currentTime = currentTime; });
+	$effect(() => { playerState.duration = duration; });
 
 	function formatTime(seconds) {
 		const mins = Math.floor(seconds / 60);
@@ -32,10 +40,10 @@
 		</header>
 
 		<div class="player-content">
-			<Playlist {tracks} bind:currentTrack bind:playing />
+			<Playlist {tracks} {currentTrack} {playing} bind:currentTrack bind:playing />
 			
 			<div class="player-controls">
-				<Player {tracks} bind:currentTrack bind:playing bind:currentTime bind:duration />
+				<Player {tracks} {currentTrack} {playing} bind:currentTrack bind:playing bind:currentTime bind:duration />
 				
 				<div class="progress-bar" on:click={handleSeek}>
 					<div class="progress" style="width: {duration ? (currentTime / duration) * 100 : 0}%"></div>
