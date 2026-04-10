@@ -15,7 +15,8 @@
       "Bash(rmdir *)",
       "Bash(ren *)",
       "Bash(xcopy *)",
-      "Bash(dir)"
+      "Bash(dir)",
+      "Bash(del *)"
     ]
   },
   "$version": 3
