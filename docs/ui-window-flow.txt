@@ -1,0 +1,36 @@
+@startuml
+skinparam style strictuml
+skinparam DefaultFontName Arial
+skinparam roundcorner 10
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+}
+
+title Navigation Flow: Music Application
+
+[*] --> HomeView
+
+state HomeView {
+  [*] --> DiscoverTab
+  DiscoverTab --> SearchTab : Navigate
+  SearchTab --> LibraryTab : Navigate
+}
+
+HomeView --> ArtistProfileView : Select Artist\n(e.g., Uchu Nekoko)
+
+state ArtistProfileView {
+  [*] --> HeaderBanner
+  HeaderBanner --> ReleasesSection
+  HeaderBanner --> BiographySection
+}
+
+ArtistProfileView --> ReleasesListView : Click "View More"
+ArtistProfileView --> AlbumDetailView : Click Album Thumbnail
+
+ReleasesListView --> AlbumDetailView : Select Album
+AlbumDetailView --> MusicPlayerView : Play Track
+MusicPlayerView --> AlbumDetailView : Minimize Player
+MusicPlayerView --> [*] : Close Application
+
+@enduml
