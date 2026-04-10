@@ -40,12 +40,12 @@
 		</header>
 
 		<div class="player-content">
-			<Playlist {tracks} {currentTrack} {playing} bind:currentTrack bind:playing />
+			<Playlist {tracks} bind:currentTrack bind:playing />
 			
 			<div class="player-controls">
-				<Player {tracks} {currentTrack} {playing} bind:currentTrack bind:playing bind:currentTime bind:duration />
+				<Player {tracks} bind:currentTrack bind:playing bind:currentTime bind:duration />
 				
-				<div class="progress-bar" on:click={handleSeek}>
+				<div class="progress-bar" onclick={handleSeek} role="slider" tabindex="0" aria-label="Seek progress">
 					<div class="progress" style="width: {duration ? (currentTime / duration) * 100 : 0}%"></div>
 				</div>
 				
