@@ -92,14 +92,15 @@ export const albums = [
 		coverLow: hibiNoAwaCoverLow,
 		coverHi: hibiNoAwaCoverHi,
 		tracks: [
-			{ id: 'hibi-01', title: 'Hibi No Awa', featuring: 'Lovely Summer Chan', src: hibi_01 },
-			{ id: 'hibi-02', title: 'Divine Hammer', featuring: 'Lovely Summer Chan', src: hibi_02 },
-			{ id: 'hibi-03', title: 'Summer Sunny Blue', featuring: 'Yo Irie', src: hibi_03 },
-			{ id: 'hibi-04', title: 'Bi.Ne.Tsu', featuring: 'Yo Irie', src: hibi_04 },
-			{ id: 'hibi-05', title: 'Online Love', featuring: 'Tsvaci', src: hibi_05 },
-			{ id: 'hibi-06', title: 'Tadaima', featuring: 'tsvaci', src: hibi_06 },
-			{ id: 'hibi-07', title: 'Glass No Niji', featuring: 'Reddam', src: hibi_07 },
-			{ id: 'hibi-08', title: 'Hibi No Awa (Reprise)', featuring: null, src: hibi_08 },
+			{ id: 'hibi-01', title: 'Divine Hammer', featuring: 'Lovely Summer Chan', src: hibi_02 },
+			{ id: 'hibi-02', title: 'Online Love', featuring: 'Tsvaci', src: hibi_05 },
+			{ id: 'hibi-03', title: 'Garasu no Niji', featuring: 'Reddam', src: hibi_07 },
+			{ id: 'hibi-04', title: 'Summer Sunny Blue', featuring: 'Yo Irie', src: hibi_03 },
+			{ id: 'hibi-05', title: "isn't Anything", featuring: 'lulu', src: summer_02 },
+			{ id: 'hibi-06', title: 'Bi, Ne, Tsu', featuring: 'Yo Irie', src: hibi_04 },
+			{ id: 'hibi-07', title: 'Tadaima', featuring: 'tsvaci', src: hibi_06 },
+			{ id: 'hibi-08', title: 'Hibi No Awa', featuring: 'Lovely Summer Chan', src: hibi_01 },
+			{ id: 'hibi-09', title: 'Hibi No Awa (Reprise)', featuring: null, src: hibi_08 },
 		]
 	},
 	{
@@ -111,13 +112,13 @@ export const albums = [
 		coverLow: kimiCoverLow,
 		coverHi: kimiCoverHi,
 		tracks: [
-			{ id: 'kimi-01', title: 'Kimi No Youni Ikiretara', featuring: null, src: kimi_01 },
-			{ id: 'kimi-02', title: 'Like a Raspberry', featuring: null, src: kimi_02 },
-			{ id: 'kimi-03', title: 'Film', featuring: null, src: kimi_03 },
-			{ id: 'kimi-04', title: 'Flowers', featuring: null, src: kimi_04 },
+			{ id: 'kimi-01', title: 'Virgin Suicide', featuring: null, src: kimi_06 },
+			{ id: 'kimi-02', title: 'Kimi No Youni Ikiretara', featuring: null, src: kimi_01 },
+			{ id: 'kimi-03', title: 'Like a Raspberry', featuring: null, src: kimi_02 },
+			{ id: 'kimi-04', title: 'Film', featuring: null, src: kimi_03 },
 			{ id: 'kimi-05', title: "(I'm) Waiting for the Sun", featuring: null, src: kimi_05 },
-			{ id: 'kimi-06', title: 'Virgin Suicide', featuring: null, src: kimi_06 },
-			{ id: 'kimi-07', title: 'Timeless', featuring: null, src: kimi_07 },
+			{ id: 'kimi-06', title: 'Timeless', featuring: null, src: kimi_07 },
+			{ id: 'kimi-07', title: 'Flowers', featuring: null, src: kimi_04 },
 		]
 	},
 	{
@@ -130,12 +131,12 @@ export const albums = [
 		coverHi: hinoCoverHi,
 		tracks: [
 			{ id: 'hino-01', title: 'Hino Ataru Basyo Ni Kiteyo', featuring: null, src: hino_01 },
-			{ id: 'hino-02', title: '9', featuring: null, src: hino_02 },
-			{ id: 'hino-03', title: 'Skirt', featuring: null, src: hino_03 },
-			{ id: 'hino-04', title: 'Heya', featuring: null, src: hino_04 },
-			{ id: 'hino-05', title: 'Hikage', featuring: null, src: hino_05 },
-			{ id: 'hino-06', title: 'Rebirth', featuring: null, src: hino_06 },
-			{ id: 'hino-07', title: 'Slow', featuring: null, src: hino_07 },
+			{ id: 'hino-02', title: 'Skirt', featuring: null, src: hino_03 },
+			{ id: 'hino-03', title: 'Heya', featuring: null, src: hino_04 },
+			{ id: 'hino-04', title: 'Slow', featuring: null, src: hino_07 },
+			{ id: 'hino-05', title: 'Rebirth', featuring: null, src: hino_06 },
+			{ id: 'hino-06', title: '9', featuring: null, src: hino_02 },
+			{ id: 'hino-07', title: 'Hikage', featuring: null, src: hino_05 },
 		]
 	},
 	{
@@ -147,13 +148,13 @@ export const albums = [
 		coverLow: demoCoverLow,
 		coverHi: demoCoverHi,
 		tracks: [
-			{ id: 'demo-01', title: 'Kimi No Youni Ikiretara (Home Demo)', featuring: null, src: demo_01 },
-			{ id: 'demo-02', title: 'Like a Raspberry (Home Demo)', featuring: null, src: demo_02 },
-			{ id: 'demo-03', title: 'Film (Home Demo)', featuring: null, src: demo_03 },
-			{ id: 'demo-04', title: 'Flowers (Home Demo)', featuring: null, src: demo_04 },
+			{ id: 'demo-01', title: 'Virgin Suicide (Studio Outtake)', featuring: null, src: demo_06 },
+			{ id: 'demo-02', title: 'Kimi No Youni Ikiretara (Home Demo)', featuring: null, src: demo_01 },
+			{ id: 'demo-03', title: 'Like a Raspberry (Home Demo)', featuring: null, src: demo_02 },
+			{ id: 'demo-04', title: 'Film (Home Demo)', featuring: null, src: demo_03 },
 			{ id: 'demo-05', title: "(I'm) Waiting for the Sun (Home Demo)", featuring: null, src: demo_05 },
-			{ id: 'demo-06', title: 'Virgin Suicide (Studio Outtake)', featuring: null, src: demo_06 },
-			{ id: 'demo-07', title: 'Timeless (Home Demo)', featuring: null, src: demo_07 },
+			{ id: 'demo-06', title: 'Timeless (Home Demo)', featuring: null, src: demo_07 },
+			{ id: 'demo-07', title: 'Flowers (Home Demo)', featuring: null, src: demo_04 },
 		]
 	}
 ];
