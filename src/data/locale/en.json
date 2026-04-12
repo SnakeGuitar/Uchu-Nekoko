@@ -1,0 +1,49 @@
+{
+	"app": {
+		"title": "Uchu Nekoko",
+		"titleJp": "宇宙ネコ子",
+		"subtitle": "Music Player",
+		"description": "A themed music player for Uchu Nekoko, the Japanese dream pop duo from Kanagawa."
+	},
+	"profile": {
+		"releases": "Releases",
+		"viewMore": "View More",
+		"biography": [
+			"Uchuu Nekoko (Uchū Nekoko), also known as Universe Nekoko, is a Japanese dream pop duo from Kanagawa formed in 2012. It was formed by Nemuko Yamanaka and Kōhei Tanabe, but currently comprises Yamanaka and Kano. The duo have never released their faces, instead choosing to identify themselves through anime avatars.",
+			"Their sound blends nostalgic shoegaze textures with dreamy vocal harmonies, creating intimate soundscapes that feel like half-remembered summer afternoons. All artwork is illustrated by Tomoko Oshima."
+		],
+		"members": {
+			"nemuko": "Nemuko",
+			"kano": "Kano"
+		}
+	},
+	"album": {
+		"back": "Back",
+		"playAll": "Play All",
+		"tracks": "tracks",
+		"featuring": "feat.",
+		"types": {
+			"album": "Album",
+			"ep": "EP",
+			"single": "Single"
+		}
+	},
+	"player": {
+		"previous": "Previous",
+		"play": "Play",
+		"pause": "Pause",
+		"next": "Next",
+		"volume": "Volume",
+		"seekProgress": "Seek progress",
+		"volumeSlider": "Volume slider",
+		"viewAlbum": "View album",
+		"expand": "Expand player",
+		"collapse": "Collapse player",
+		"nowPlaying": "Now Playing",
+		"artist": "Uchu Nekoko"
+	},
+	"theme": {
+		"toggleLight": "Switch to light mode",
+		"toggleDark": "Switch to dark mode"
+	}
+}
