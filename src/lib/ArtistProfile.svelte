@@ -7,6 +7,7 @@
 
 	let { onSelectAlbum } = $props();
 	let visible = $state(false);
+	let sortMode = $state('type');
 
 	$effect(() => {
 		requestAnimationFrame(() => { visible = true; });
@@ -31,10 +32,12 @@
 			.map(([year, items]) => ({ year, items }));
 	}
 
+	const allReleasesSorted = $derived(
+		[...albums, ...epsAndSingles].sort((a, b) => b.year - a.year)
+	);
 	const albumsByYear = $derived(groupByYear([...albums].sort((a, b) => b.year - a.year)));
 	const epsByYear = $derived(groupByYear([...epsAndSingles].sort((a, b) => b.year - a.year)));
-
-	let globalCardIndex = 0;
+	const allByYear = $derived(groupByYear(allReleasesSorted));
 </script>
 
 <div class="artist-profile" class:visible>
@@ -48,13 +51,52 @@
 
 	<div class="page-layout">
 		<div class="discography-column">
-			<h2 class="page-section-title">{locale.profile.releases}</h2>
+			<div class="discography-header">
+				<h2 class="page-section-title">{locale.profile.releases}</h2>
+				<div class="sort-selector" role="group" aria-label="Sort discography by">
+					<button
+						class="sort-pill"
+						class:active={sortMode === 'type'}
+						onclick={() => sortMode = 'type'}
+						aria-pressed={sortMode === 'type'}
+					>
+						{locale.profile.sortByType}
+					</button>
+					<button
+						class="sort-pill"
+						class:active={sortMode === 'year'}
+						onclick={() => sortMode = 'year'}
+						aria-pressed={sortMode === 'year'}
+					>
+						{locale.profile.sortByYear}
+					</button>
+				</div>
+			</div>
 
-			<div class="release-category">
-				<h3 class="category-title">
-					<span class="category-label">{locale.profile.albums}</span>
-				</h3>
-				{#each albumsByYear as group, gi}
+			{#if sortMode === 'type'}
+				<div class="release-category">
+					<h3 class="category-title">
+						<span class="category-label">{locale.profile.albums}</span>
+					</h3>
+					<div class="releases-grid">
+						{#each [...albums].sort((a, b) => b.year - a.year) as release, i}
+							{@render releaseCard(release, i * 0.05)}
+						{/each}
+					</div>
+				</div>
+
+				<div class="release-category">
+					<h3 class="category-title">
+						<span class="category-label">{locale.profile.epsAndSingles}</span>
+					</h3>
+					<div class="releases-grid">
+						{#each [...epsAndSingles].sort((a, b) => b.year - a.year) as release, i}
+							{@render releaseCard(release, i * 0.05)}
+						{/each}
+					</div>
+				</div>
+			{:else}
+				{#each allByYear as group, gi}
 					<div class="year-group">
 						<div class="year-marker">
 							<span class="year-label">{group.year}</span>
@@ -62,69 +104,12 @@
 						</div>
 						<div class="releases-grid">
 							{#each group.items as release, ri}
-								<button
-									class="release-card"
-									style="--delay: {(gi * 0.12 + ri * 0.06)}s"
-									onclick={() => handleAlbumClick(release)}
-									aria-label="{release.title}"
-								>
-									<div class="release-cover-wrap">
-										<img src={release.coverLow} alt="{release.title}" class="release-cover" loading="lazy" />
-										<div class="release-play-overlay">
-											<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-												<path d="M8 5v14l11-7z"/>
-											</svg>
-										</div>
-									</div>
-									<div class="release-info">
-										<span class="release-title">{release.title}</span>
-										<span class="release-title-jp">{release.titleJp || '\u00A0'}</span>
-										<span class="release-meta">{getTypeLabel(release.type)}</span>
-									</div>
-								</button>
+								{@render releaseCard(release, gi * 0.1 + ri * 0.05)}
 							{/each}
 						</div>
 					</div>
 				{/each}
-			</div>
-
-			<div class="release-category">
-				<h3 class="category-title">
-					<span class="category-label">{locale.profile.epsAndSingles}</span>
-				</h3>
-				{#each epsByYear as group, gi}
-					<div class="year-group">
-						<div class="year-marker">
-							<span class="year-label">{group.year}</span>
-							<div class="year-line"></div>
-						</div>
-						<div class="releases-grid">
-							{#each group.items as release, ri}
-								<button
-									class="release-card"
-									style="--delay: {(gi * 0.12 + ri * 0.06)}s"
-									onclick={() => handleAlbumClick(release)}
-									aria-label="{release.title}"
-								>
-									<div class="release-cover-wrap">
-										<img src={release.coverLow} alt="{release.title}" class="release-cover" loading="lazy" />
-										<div class="release-play-overlay">
-											<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-												<path d="M8 5v14l11-7z"/>
-											</svg>
-										</div>
-									</div>
-									<div class="release-info">
-										<span class="release-title">{release.title}</span>
-										<span class="release-title-jp">{release.titleJp || '\u00A0'}</span>
-										<span class="release-meta">{getTypeLabel(release.type)}</span>
-									</div>
-								</button>
-							{/each}
-						</div>
-					</div>
-				{/each}
-			</div>
+			{/if}
 		</div>
 
 		<aside class="biography-column">
@@ -146,6 +131,29 @@
 		</aside>
 	</div>
 </div>
+
+{#snippet releaseCard(release, delay)}
+	<button
+		class="release-card"
+		style="--delay: {delay}s"
+		onclick={() => handleAlbumClick(release)}
+		aria-label="{release.title}"
+	>
+		<div class="release-cover-wrap">
+			<img src={release.coverLow} alt="{release.title}" class="release-cover" loading="lazy" />
+			<div class="release-play-overlay">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+					<path d="M8 5v14l11-7z"/>
+				</svg>
+			</div>
+		</div>
+		<div class="release-info">
+			<span class="release-title">{release.title}</span>
+			<span class="release-title-jp">{release.titleJp || '\u00A0'}</span>
+			<span class="release-meta">{getTypeLabel(release.type)}</span>
+		</div>
+	</button>
+{/snippet}
 
 <style>
 	.artist-profile {
@@ -222,8 +230,48 @@
 		font-size: 1.5rem;
 		font-weight: 700;
 		color: var(--text-primary);
-		margin-bottom: 1.8rem;
 		letter-spacing: 0.3px;
+	}
+
+	.discography-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 1.8rem;
+		flex-wrap: wrap;
+	}
+
+	.sort-selector {
+		display: flex;
+		background: var(--surface-inset);
+		border-radius: 24px;
+		padding: 3px;
+		gap: 2px;
+		border: 1px solid var(--border-subtle);
+	}
+
+	.sort-pill {
+		background: none;
+		border: none;
+		border-radius: 20px;
+		padding: 0.3rem 0.9rem;
+		font-family: var(--font-display);
+		font-size: 0.78rem;
+		font-weight: 500;
+		color: var(--text-secondary);
+		cursor: pointer;
+		transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		white-space: nowrap;
+	}
+	.sort-pill:hover {
+		color: var(--text-primary);
+	}
+	.sort-pill.active {
+		background: var(--surface-raised);
+		color: var(--accent-primary);
+		box-shadow: var(--shadow-card);
+		font-weight: 600;
 	}
 
 	.release-category {
@@ -285,7 +333,7 @@
 		gap: 0.85rem;
 	}
 
-	.release-card {
+	:global(.release-card) {
 		background: var(--surface-raised);
 		border: 1px solid var(--border-subtle);
 		border-radius: var(--radius-md);
@@ -306,20 +354,20 @@
 		from { opacity: 0; transform: translateY(12px) scale(0.98); }
 		to { opacity: 1; transform: translateY(0) scale(1); }
 	}
-	.release-card:hover {
+	:global(.release-card:hover) {
 		background: var(--surface-hover);
 		border-color: var(--accent-primary-muted);
 		transform: translateY(-3px);
 		box-shadow: var(--shadow-elevated);
 	}
 
-	.release-cover-wrap {
+	:global(.release-cover-wrap) {
 		position: relative;
 		width: 100%;
 		aspect-ratio: 1 / 1;
 		overflow: hidden;
 	}
-	.release-cover {
+	:global(.release-cover) {
 		position: absolute;
 		inset: 0;
 		width: 100%;
@@ -328,10 +376,10 @@
 		transition: transform 0.5s ease;
 		display: block;
 	}
-	.release-card:hover .release-cover {
+	:global(.release-card:hover .release-cover) {
 		transform: scale(1.05);
 	}
-	.release-play-overlay {
+	:global(.release-play-overlay) {
 		position: absolute;
 		inset: 0;
 		display: flex;
@@ -342,18 +390,18 @@
 		transition: opacity 0.35s ease;
 		color: #fff;
 	}
-	.release-card:hover .release-play-overlay {
+	:global(.release-card:hover .release-play-overlay) {
 		opacity: 1;
 	}
 
-	.release-info {
+	:global(.release-info) {
 		padding: 0.7rem 0.8rem;
 		display: grid;
 		grid-template-rows: 1fr auto auto;
 		gap: 0.1rem;
 		min-height: 68px;
 	}
-	.release-title {
+	:global(.release-title) {
 		font-family: var(--font-display);
 		font-weight: 600;
 		font-size: 0.82rem;
@@ -364,7 +412,7 @@
 		-webkit-box-orient: vertical;
 		line-height: 1.3;
 	}
-	.release-title-jp {
+	:global(.release-title-jp) {
 		font-family: var(--font-jp);
 		font-size: 0.7rem;
 		color: var(--text-accent-muted);
@@ -372,7 +420,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.release-meta {
+	:global(.release-meta) {
 		font-size: 0.68rem;
 		font-weight: 600;
 		text-transform: uppercase;
